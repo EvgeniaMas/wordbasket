@@ -1,79 +1,21 @@
-html{
+html, body{
 overflow-x: hidden;
-}
-
-
-.basket_wrapper{
-overflow: hidden;
-position: relative;
-height: 100vh;
-width: 100vw;
 padding:0;
 margin:0;
 }
-
-
 .game_field {
-position: absolute;
-left: 0;
-bottom: 0;
+position: relative;
+padding:0;
+margin:0;
 height: 100vh;
 width: 100vw;
-
-}
-#gameBasketBox {
-height:100%;
-overflow:hidden;
-background-image: url('img/basket_bg.png');
-background-position: center bottom;
-background-size: cover;
-background-repeat: no-repeat;
-position:relative;
-margin:0 auto;
-width:100vw;
-max-width:1000px;
-position: absolute;
-bottom: 0;
-left: 0;
-right: 0;
-max-height: 500px;
-margin: 0 auto;
+background-color: #fff;
 }
 #wordbasket_start{
 background-image: url('img/start_basket.png');
 width: 147px;
 height: 137px;
 z-index: 3;
-margin-top: 29vh;
-}
-
-#wordbasket_left{
-background-image: url('img/left_basket.png');
-width: 97px;
-height: 97px;
-bottom: 50px;
-left: 5%;
-z-index: 3;
-}
-#wordbasket_right{
-background-image: url('img/right_basket.png');
-width: 97px;
-height: 97px;
-bottom: 50px;
-right: 5%;
-z-index: 3;
-}
-#score {
-height:80px;
-min-width: 200px;
-color:#fff;
-text-align:center;
-font-size:24px;
-line-height:50px;
-background-repeat: no-repeat;
-background-position: center center;
-background-image: url('img/basket.png'); 
-user-select:none;
 }
 #wordbasket_start:hover{
 transform: scale(1.05);
@@ -101,12 +43,27 @@ button.wordbasket_button:focus{
 outline: none;
 background-color: transparent;
 }
+#wordbasket_left{
+background-image: url('img/left_basket.png');
+width: 97px;
+height: 97px;
+bottom: 50px;
+left: 5%;
+z-index: 3;
+}
+#wordbasket_right{
+background-image: url('img/right_basket.png');
+width: 97px;
+height: 97px;
+bottom: 50px;
+right: 5%;
+z-index: 3;
+}
 .track {
 width:calc(100% / 5);
 height:95vh;
-max-height: 500px;
 float:left;
-
+text-align:center;
 }
 .block {
 position:relative;
@@ -116,30 +73,49 @@ height:calc(95vh / 5);
 #wordBasket {
 width:calc(100% / 5);
 position:absolute;
-top:calc(500px - 70px);
+top:calc(95vh - 40px);
 left:calc((100% / 5)*2);
 }
+#score {
+height:80px;
+color:white;
+text-align:center;
 
-.falling_word {
-width:10vw;
-height:10vw;
+font-size:24px;
+font-weight:500;
+line-height:50px;
+background-repeat: no-repeat;
+background-position: center center;
+background-image: url('img/basket.png'); 
+background-size: contain;
+user-select:none;
+}
+.fruit {
+  width:10vw;
+  height:10vw;
 
 }
-.word_view {
-width:4em;
-height:3em;
-padding-top: 0.5em;
+.apple {
+width:6em;
+height:5em;
+padding-top: 1.5em;
 position:relative;
-left:calc((100% - 4em)/2);
-top:calc((100% - 4em)/2);
+left:calc((100% - 6em)/2);
+top:calc((100% - 6em)/2);
 text-align: center;
 color: #000;
 font-size: 18px;
 font-family:"Arial";
 font-weight: bold;
+
 }
-.wrong {
-overflow:hidden;
+.bad {
+/*overflow:hidden;*/
+/*background-color: pink*/;
+}
+
+.good{
+	/*background-color: green;*/
 }
 #game_result{
 text-align: center;
@@ -160,44 +136,74 @@ display: none;
 .top {
 position:absolute;
 }
-
+#gameBasketBox {
+height:100vh;
+overflow:hidden;
+background-image: url('img/basket_bg.png');
+background-position: center bottom;
+background-size: cover;
+background-repeat: no-repeat;
+position:relative;
+margin:0 auto;
+width:80vw;
+max-width:1000px;
+}
 
 
 /*Mobile version*/
 
-@media (max-width:767px) and (orientation:portrait){
-#gameBasketBox  {
-width: 100vw;
-max-width: 360px;
-max-height: 480px;
-background-image: url('img/basket_bg_mobile.png');
-background-size: contain;
-}
-#score {
-background-image: url('img/basket_mobile.png');
-}
-
-
+@media (max-width:767px){
 #wordbasket_start {
 width: 87px;
 height: 87px;
+margin-top: 10px;
 }
+
+
+/*.track {
+width: calc(100% / 5);
+height: 95vh;
+max-height: 480;
+}*/
+
 
 #wordbasket_left,
 #wordbasket_right{
-background-image: url('img/left_basket.png');
-width: 47px;
-height: 47px;
+width: 40px;
+height: 40px;
 bottom: 30px;
 }
 
-.word_view {
-width:4em;
+#wordbasket_left{
+left: 5px;
+}
+#wordbasket_right{
+/*right: 5px;*/
+}
+
+
+
+
+.apple {
 height:4em;
-padding-top: 1.5em;
+width: 4em;
+padding-top: 0.5em;
 left:calc((100% - 4em)/2);
 top:calc((100% - 4em)/2);
-font-size: 16px;
+font-size: 14px;
+}
+
+
+}
+
+@media (max-width:767px) and (orientation:portrait){
+#gameBasketBox  {
+width: 100vw;
+background-image: url('img/basket_bg_mobile.png');
+}
+#score {
+background-image: url('img/basket_mobile.png');
+
 }
 
 }
