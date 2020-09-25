@@ -3,7 +3,7 @@ overflow-x: hidden;
 padding:0;
 margin:0;
 }
-.game_field {
+#game_field {
 position: relative;
 padding:0;
 margin:0;
@@ -11,11 +11,49 @@ height: 100vh;
 width: 100vw;
 background-color: #fff;
 }
+#gameBasketBox {
+height:100vh;
+max-height: 500px;
+overflow:hidden;
+background-image: url('img/basket_bg.png');
+background-position: center bottom;
+background-size: cover;
+background-repeat: no-repeat;
+margin:0 auto;
+width:100vw;
+max-width:1000px;
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;
+}
+
+#basket_result.basket_success{
+background-image: url('img/success.gif');
+background-position: center center;
+background-size: contain;
+background-repeat: no-repeat;
+}
+#wordScore {
+height:80px;
+color:#fff;
+background-repeat: no-repeat;
+background-position: center top;
+background-image: url('img/basket.png'); 
+background-size: contain;
+user-select:none;
+}
 #wordbasket_start{
 background-image: url('img/start_basket.png');
+background-repeat: no-repeat;
+background-size: contain;
+background-position: center;
 width: 147px;
 height: 137px;
 z-index: 3;
+position: absolute;
+top: 30%;
+left: 0;
 }
 #wordbasket_start:hover{
 transform: scale(1.05);
@@ -43,172 +81,105 @@ button.wordbasket_button:focus{
 outline: none;
 background-color: transparent;
 }
-#wordbasket_left{
-background-image: url('img/left_basket.png');
-width: 97px;
-height: 97px;
-bottom: 50px;
-left: 5%;
-z-index: 3;
-}
-#wordbasket_right{
-background-image: url('img/right_basket.png');
-width: 97px;
-height: 97px;
-bottom: 50px;
-right: 5%;
-z-index: 3;
-}
 .track {
 width:calc(100% / 5);
-height:95vh;
 float:left;
+margin-bottom: 0;
 text-align:center;
 }
-.block {
+.word_block {
 position:relative;
 width:100%;
 height:calc(95vh / 5);
+/*border: 3px solid red;*/
 }
 #wordBasket {
 width:calc(100% / 5);
 position:absolute;
-top:calc(95vh - 40px);
+top:calc(100% - 75px);
 left:calc((100% / 5)*2);
 }
-#score {
-height:80px;
-color:white;
-text-align:center;
-
-font-size:24px;
-font-weight:500;
-line-height:50px;
-background-repeat: no-repeat;
-background-position: center center;
-background-image: url('img/basket.png'); 
-background-size: contain;
-user-select:none;
-}
-.fruit {
-  width:10vw;
-  height:10vw;
-
-}
-.apple {
-width:6em;
+.falling_word {
+width: 100%;
 height:5em;
-padding-top: 1.5em;
+padding-top: 0;
 position:relative;
-left:calc((100% - 6em)/2);
 top:calc((100% - 6em)/2);
-text-align: center;
+text-align: left;
 color: #000;
-font-size: 18px;
+font-size: 20px;
 font-family:"Arial";
 font-weight: bold;
+margin: auto;
 
 }
-.bad {
-/*overflow:hidden;*/
-/*background-color: pink*/;
+.correct{
+/*background-color: green;*/
 }
-
-.good{
-	/*background-color: green;*/
-}
-#game_result{
+#basket_result{
 text-align: center;
 text-transform: uppercase;
 position: absolute;
 font-weight: bold;
 font-size: 26px;
-top: 25%;
+top: 0;
+width: 80%;
+height: 60%;
 left: 0;
 right: 0;
-max-width: 250px;
 margin: 0 auto;
-border: 2px solid #D1E231;
 border-radius: 20px;
 padding: 30px  20px;
 display: none;
 }
-.top {
+.flow_elements {
 position:absolute;
+box-sizing: border-box;
 }
-#gameBasketBox {
-height:100vh;
-overflow:hidden;
-background-image: url('img/basket_bg.png');
-background-position: center bottom;
-background-size: cover;
-background-repeat: no-repeat;
-position:relative;
-margin:0 auto;
-width:80vw;
-max-width:1000px;
+.flow_elements.left{
+text-align: left;
+padding-left: 20%;
 }
-
-
+.flow_elements.right{
+text-align: right;
+padding-right: 20%;
+}
+.track_box{
+position: absolute;
+bottom: 0;
+left: 0;
+right: 0;	
+}
 /*Mobile version*/
-
 @media (max-width:767px){
 #wordbasket_start {
 width: 87px;
 height: 87px;
-margin-top: 10px;
+top: 10px;
 }
-
-
-/*.track {
-width: calc(100% / 5);
-height: 95vh;
-max-height: 480;
-}*/
-
-
-#wordbasket_left,
-#wordbasket_right{
-width: 40px;
-height: 40px;
-bottom: 30px;
+#wordBasket {
+top:calc(100% - 35px);
 }
-
-#wordbasket_left{
-left: 5px;
 }
-#wordbasket_right{
-/*right: 5px;*/
-}
-
-
-
-
-.apple {
-height:4em;
-width: 4em;
-padding-top: 0.5em;
-left:calc((100% - 4em)/2);
-top:calc((100% - 4em)/2);
-font-size: 14px;
-}
-
-
-}
-
 @media (max-width:767px) and (orientation:portrait){
 #gameBasketBox  {
-width: 100vw;
+max-width: 360px;
+max-height: 480px;
 background-image: url('img/basket_bg_mobile.png');
 }
 #score {
 background-image: url('img/basket_mobile.png');
-
+}
+.flow_elements.left{
+padding-left: 0;
+}
+.flow_elements.right{
+padding-right: 0;
+}
 }
 
+#game_field{
+
+background-color: blue;
 }
 
-
-/*360 X 480
-
-1000 X 500*/
