@@ -5,6 +5,10 @@ const gameBasketBox = document.getElementById('gameBasketBox');
 const basket_result = document.getElementById('basket_result');
 const track = document.getElementsByClassName('track');
 const game_field = document.getElementById('game_field');
+const close_popup_basket = document.getElementById('close_popup_basket'); 
+const basket_overlay = document.getElementById('basket_overlay');
+const wordbasket_restart = document.getElementById('wordbasket_restart');
+const basket_message = document.getElementById('basket_message');
 let play_array = [];
 let wordBasketBuilt = false;
 let runWordBasket;
@@ -81,20 +85,22 @@ function basketOver(){
 
 // evaluate results
 function checkUpBasket(){
+    
+    basket_overlay.style.display = 'block';
     basket_result.style.display = 'block';
+
     if(correct_catch > 1 && wrong_words ==0) {
       basket_result.className = 'basket_success';
-      basket_result.innerHTML = '';
+      basket_message.innerHTML = '<p class="basket_done"> Mission 8 Success </p>';
+      wordbasket_restart.style.display = 'none';
                 
     }
-    else if(correct_catch >=0) {
+    else {
       basket_result.className = ' ';
-      basket_result.innerHTML = '<p>You have catched' + '<br> correct words:  ' + correct_catch + '  of 5; <br> Wrong words: ' +  wrong_words  + '.' + '<br> You can try again!</p>';  
+      basket_message.innerHTML = '<p class="basket_text">You have catched' + '<br> correct words:  ' + correct_catch + '  of 5; <br> Wrong words: ' +  wrong_words  + '.' + '<br> You can try again!</p>    ';  
+      wordbasket_restart.style.display = 'block';
     }
-    else{
-    basket_result.className = ' ';  
-    basket_result.innerHTML = '<p>You failed! Try again!</p>';  
-    }
+    
     correct_catch = 0;  
     wrong_words = 0;  
     clearInterval(runWordBasket);
@@ -125,10 +131,6 @@ function moveWords() {
         }
         
       } else {
-        // if(falling_word[i].classList.contains('correct')){
-        //     // correct_catch--;
-        //     //   document.getElementById('wordScore').innerHTML = correct_catch;        
-        // }
             falling_word[i].remove(falling_word[i]);                
       }      
     } else {
@@ -158,7 +160,7 @@ function getcoordinates(){
 
 // mouse event handler 
 function getMouseDirection(e) {
-    //deal with the horizontal case
+
     if (player_oldX < e.pageX) {
         xDirection = 'right';
     } else {
@@ -176,6 +178,20 @@ if(track_index>10){
 }
  let offset = track_index * x_basket;
   wordBasket.style.left = offset + 'px';                 
+}
+
+function basketNewgame(){
+ getWordsSequence();
+  if(wordBasketBuilt ==false){  
+   buildBasketGame();
+  }
+  else{
+     basket_result.style.display = 'none'; 
+     basket_overlay.style.display = 'none';
+  }
+  gameBasketBox.addEventListener('mousemove', getMouseDirection, false);
+  runWordBasket = setInterval(moveWords,  800);
+
 }
 
 // move basket left/right on events
@@ -209,15 +225,7 @@ let width = document.body.clientWidth/2;
 
 // click a start button
 wordbasket_start.addEventListener('click', function(e){
- getWordsSequence();
-  if(wordBasketBuilt ==false){  
-   buildBasketGame();
-  }
-  else{
-     basket_result.style.display = 'none'; 
-  }
-  gameBasketBox.addEventListener('mousemove', getMouseDirection, false);
-  runWordBasket = setInterval(moveWords,  800);
+basketNewgame();
 });
 // moving basket from keyboard;
 window.addEventListener('keyup',function(e){
@@ -246,4 +254,13 @@ window.addEventListener('keyup',function(e){
   }
 });
 
+close_popup_basket.addEventListener('click', function(e){
+basket_overlay.style.display = 'none';
+});
+
 gameBasketBox.addEventListener('touchstart', getTouchBasket, false);
+
+// restart game if fail
+wordbasket_restart.addEventListener('click', function(e){
+basketNewgame();
+});

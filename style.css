@@ -27,7 +27,24 @@ bottom: 0;
 left: 0;
 right: 0;
 }
-
+.wordbasket_button{
+border: none;
+background: transparent; 
+outline: none;
+position: absolute;
+-webkit-transition: all 800ms ease-out;
+-o-transition: all 800ms ease-out;
+transition: all 800ms ease-out;
+padding: 0;
+cursor: pointer;
+background-repeat: no-repeat;
+background-size: contain;
+background-position: center center;
+}
+button.wordbasket_button:focus{
+outline: none;
+background-color: transparent;
+}
 #basket_result.basket_success{
 background-image: url('img/success.gif');
 background-position: center center;
@@ -55,32 +72,51 @@ position: absolute;
 top: 30%;
 left: 0;
 }
-#wordbasket_start:hover{
-transform: scale(1.05);
+#wordbasket_restart{
+background-image: url('img/restart.png');
+background-repeat: no-repeat;
+background-size: contain;
+background-position: center;
+position: relative;
+width: 137px;
+height: 137px;	
+margin: auto;
+margin-top: 16px;
+display: block;
+}
+#basket_overlay{
+width: 100vw;
+height: 100vh;
+background-color: rgba(0,0,0,0.3);
+position: absolute;
+top: 0;
+right: 0;
+left: 0;
+margin: 0 auto;
+z-index: 12;
+display: none;
+}
+#close_popup_basket{
+position: absolute;
+top: 20px;
+right: 20px;
+font-size: 20px;
+color: #dd132b;
+cursor: pointer;
+font-family: 'Arial';	
+}
+#wordbasket_start:hover,
+#wordbasket_restart:hover{
+-webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+        transform: scale(1.05);
 opacity: 0.8;
 outline: none;
 }
 #wordbasket_start:focus{
 outline: none;
 }
-.wordbasket_button{
-border: none;
-background: transparent; 
-outline: none;
-position: absolute;
--webkit-transition: all 800ms ease-out;
--o-transition: all 800ms ease-out;
-transition: all 800ms ease-out;
-padding: 0;
-cursor: pointer;
-background-repeat: no-repeat;
-background-size: contain;
-background-position: center center;
-}
-button.wordbasket_button:focus{
-outline: none;
-background-color: transparent;
-}
+
 .track {
 width:calc(100% / 5);
 float:left;
@@ -91,7 +127,6 @@ text-align:center;
 position:relative;
 width:100%;
 height:calc(95vh / 5);
-/*border: 3px solid red;*/
 }
 #wordBasket {
 width:calc(100% / 5);
@@ -111,11 +146,20 @@ font-size: 20px;
 font-family:"Arial";
 font-weight: bold;
 margin: auto;
-
 }
-.correct{
-/*background-color: green;*/
+.basket_done{
+text-align: center;
+text-transform: none;
+color: #086d5d;
+font-size: 45px;
 }
+.basket_text{
+font-size: 20px;
+color: #000;
+}
+/*.correct{
+background-color: green;
+}*/
 #basket_result{
 text-align: center;
 text-transform: uppercase;
@@ -131,6 +175,9 @@ margin: 0 auto;
 border-radius: 20px;
 padding: 30px  20px;
 display: none;
+z-index: 15;
+text-align: center;
+background-color: #fff;
 }
 .flow_elements {
 position:absolute;
@@ -152,16 +199,41 @@ right: 0;
 }
 /*Mobile version*/
 @media (max-width:767px){
+.falling_word{
+font-size: 14px;
+height:3em;
+top:calc((100% - 3em)/2);
+}
 #wordbasket_start {
 width: 87px;
 height: 87px;
 top: 10px;
 }
+#wordbasket_restart{
+width: 87px;
+height: 87px;	
+margin-top: 10px;
+}
 #wordBasket {
 top:calc(100% - 35px);
 }
+.basket_done{
+font-size: 30px;
+}
+.basket_text{
+font-size: 14px;
+}
 }
 @media (max-width:767px) and (orientation:portrait){
+#close_popup_basket{
+top: 5px;
+right: 5px;
+}
+.word_block {
+position:relative;
+width:100%;
+height:calc(95vw / 5);
+}
 #gameBasketBox  {
 max-width: 360px;
 max-height: 480px;
@@ -170,6 +242,15 @@ background-image: url('img/basket_bg_mobile.png');
 #score {
 background-image: url('img/basket_mobile.png');
 }
+#basket_result.basket_success{
+background-image: url('img/success.gif');
+background-position: top center;
+background-size: contain;
+background-repeat: no-repeat;
+}
+#basket_result{
+max-height: 280px;
+}
 .flow_elements.left{
 padding-left: 0;
 }
@@ -177,9 +258,3 @@ padding-left: 0;
 padding-right: 0;
 }
 }
-
-#game_field{
-
-background-color: blue;
-}
-
