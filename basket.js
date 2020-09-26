@@ -177,42 +177,11 @@ function basketNewgame(){
   gameBasketBox.addEventListener('mousemove', getMouseDirection, false);
   runWordBasket = setInterval(moveWords,  800);
 }
-// move basket left/right on events
-function moveBasketLeft(){
-	 getcoordinates();
-    if(b_basket.offsetLeft > 0) {
-      wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
-    }
-    else {  
-       wordBasket.style.left = '0';      
-    }
-}
-function moveBasketRight(){
- getcoordinates();
-
-
-if(wordBasket.offsetLeft + b_basket.width < bx_basket.width) {      
-     wordBasket.style.left = wordBasket.offsetLeft + b_basket.width + 'px';
-
-         console.log(wordBasket.style.left);      
-  } 
-  else{
-  	console.log("Вот тут пытаюсь");
-  	wordBasket.style.left = wordBasket.offsetLeft;
-  }
-
-
-}
 // events
 // touch evnt handler
 function getTouchBasket(event){
  let xCoordinate = event.touches[0].clientX;
 let width = screen.width/2;
-
-// var xCoordinate = event.clientX;
-
-console.log( xCoordinate);
-
   getcoordinates(); 
 
    if(xCoordinate<=width){
@@ -224,17 +193,13 @@ console.log( xCoordinate);
    }
   else {
 
-
   	    if(b_basket.left - x_basket > 0) {
       wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
     }
     else {     
        wordBasket.style.left = '0';      
     }  
-
 }
-
-
 }
 // click a start button
 wordbasket_start.addEventListener('click', function(e){
@@ -273,12 +238,7 @@ basket_overlay.style.display = 'none';
 wordbasket_restart.addEventListener('click', function(e){
 basketNewgame();
 });
-
-
-
-
- let event = null;
-
+let event = null;
 document.addEventListener("touchstart", function (e) {
     event = e;
 });
@@ -292,21 +252,17 @@ document.addEventListener("touchmove", function (e) {
        wordBasket.style.left = '0';      
     }  
         
-
-
-        }
+      }
         else{
         	if(wordBasket.offsetLeft + b_basket.width < bx_basket.width) {         
             wordBasket.style.left = wordBasket.offsetLeft + x_basket + "px";          
             } 
 
             else{
-            	alert("hhhh");
+    
             wordBasket.style.left =b_basket.width*4 + "px";   	
             }
         }
-
-
    }
  });
  document.addEventListener("touched", function (e) {
