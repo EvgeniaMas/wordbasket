@@ -246,11 +246,12 @@ document.addEventListener("touchmove", function (e) {
     if (event) {
         if (e.touches[0].pageY - event.touches[0].pageY >0){
         	if(b_basket.left - x_basket > 0) {
-      wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
-    }
-    else {     
-       wordBasket.style.left = '0';      
-    }  
+             wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
+
+             if(wordBasket.offsetLeft<0){
+             	wordBasket.style.left = '0';  
+             }
+         }
         
       }
         else{

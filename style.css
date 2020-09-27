@@ -6,14 +6,14 @@ height: 100vh;
 width: 100vw;
 background-color: #fff;
 }
-/*body{
+body, html{
 overflow-x: hidden;
-}*/
+}
 #gameBasketBox {
 height:100vh;
 max-height: 500px;
 overflow:hidden;
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/basket_bg.png');
+background-image: url('img/basket_bg.png');
 background-position: center bottom;
 background-size: cover;
 background-repeat: no-repeat;
@@ -44,7 +44,7 @@ outline: none;
 background-color: transparent;
 }
 #basket_result.basket_success{
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/success.gif');
+background-image: url('img/success.gif');
 background-position: center center;
 background-size: contain;
 background-repeat: no-repeat;
@@ -54,12 +54,12 @@ height:80px;
 color:#fff;
 background-repeat: no-repeat;
 background-position: center top;
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/basket.png'); 
+background-image: url('img/basket.png'); 
 background-size: contain;
 user-select:none;
 }
 #wordbasket_start{
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/start_basket.png');
+background-image: url('img/start_basket.png');
 background-repeat: no-repeat;
 background-size: contain;
 background-position: center;
@@ -71,7 +71,7 @@ top: 30%;
 left: 0;
 }
 #wordbasket_restart{
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/restart.png');
+background-image: url('img/restart.png');
 background-repeat: no-repeat;
 background-size: contain;
 background-position: center;
@@ -252,10 +252,10 @@ height:calc(95vw / 5);
 #gameBasketBox  {
 max-width: 360px;
 max-height: 480px;
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/basket_bg_mobile.png');
+background-image: url('img/basket_bg_mobile.png');
 }
 #score {
-background-image: url('http://lgchem-newcomers.com/wp-content/uploads/2020/09/basket_mobile.png');
+background-image: url('img/basket_mobile.png');
 }
 #basket_result.basket_success{
 background-position: top center;
@@ -266,5 +266,11 @@ padding-left: 0;
 }
 .flow_elements.right{
 padding-right: 0;
+}
+}
+@media (max-width:767px) and (orientation:landscape){
+
+#basket_result{
+max-height: 100%;
 }
 }
