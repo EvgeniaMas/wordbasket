@@ -39,6 +39,7 @@ function shuffle(array) {
 // get a set of words to show
 function getWordsSequence(){
 let correctness;
+play_array = [];
 let collected_array = [];
 for(let j=0; j< words_basket_array.length; j++){  
   for(let i=0; i< words_basket_array[j].length; i++){
@@ -83,7 +84,7 @@ function basketOver(){
       f[j].remove(f[j]);
     }
     gameBasketBox.removeEventListener('mousemove', getMouseDirection, false);
-    wordbasket_start.addEventListener('click');
+    wordbasket_start.addEventListener('click', newGamePlay);
   } 
 // evaluate results
 function checkUpBasket(){    
@@ -133,6 +134,7 @@ function moveWords() {
         } 
         else {
           let text = 'You have catched a wrong word!';
+         
           fail_game(text);        
           falling_word[i].remove(falling_word[i]);
         }
@@ -193,6 +195,7 @@ if(track_index>10){
 }
 function basketNewgame(){
  getWordsSequence();
+ 
   if(wordBasketBuilt ==false){  
    buildBasketGame();
   }
@@ -230,8 +233,8 @@ let width = screen.width/2;
 }
 // click a start button
 wordbasket_start.addEventListener('click', function(e){
-basketNewgame();
-wordbasket_start.removeEventListener('click');
+newGamePlay();
+wordbasket_start.removeEventListener('click' , newGamePlay, false);
 });
 // moving basket from keyboard;
 window.addEventListener('keyup',function(e){
@@ -267,11 +270,15 @@ track_line_index = 0;
 // bodyElement.addEventListener('touchstart', getTouchBasket, true);
 // restart game if fail
 wordbasket_restart.addEventListener('click', function(e){
-correct_catch = 0;
-track_line_index = 0;  
-basketNewgame();
+newGamePlay();
+wordbasket_start.removeEventListener('click' , newGamePlay, false); 
 });
 
+function newGamePlay(){
+  correct_catch = 0;
+track_line_index = 0;  
+basketNewgame();
+}
 
 
 // let event = null;
@@ -329,3 +336,7 @@ wordbasket_right.addEventListener('click', function(e){
     }    
 });
 }
+
+window.addEventListener("orientationchange", function() {
+    document.location.reload();
+}, false);
