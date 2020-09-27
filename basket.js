@@ -1,6 +1,8 @@
 'use strict';
 const wordbasket_start = document.getElementById('wordbasket_start');
 const wordBasket = document.getElementById('wordBasket');
+const wordbasket_left = document.getElementById('wordbasket_left');
+const wordbasket_right = document.getElementById('wordbasket_right');
 const gameBasketBox = document.getElementById('gameBasketBox');
 const basket_result = document.getElementById('basket_result');
 const track = document.getElementsByClassName('track');
@@ -17,9 +19,10 @@ let bx_basket = gameBasketBox.getBoundingClientRect();
 let x_basket = bx_basket.width / 5;
 let max_basket;
 let correct_catch = 0;
-let wrong_words =0;
 let xDirection = "";
 let player_oldX = 0;
+let track_line = [0,1,2,3,4];
+let track_line_index = 0;
 let words_basket_array = [
   ['Customer Focus', 'Customer Foam Cleanser', 'Customer Foous' , 'Costomer Focns', 'Customr Focus' ],
   ['Agility', 'Ability', 'Aqility' , 'Angry', 'Agilty' ],
@@ -48,8 +51,8 @@ for(let j=0; j< words_basket_array.length; j++){
    let falling_word = document.createElement('div');
    falling_word.innerText = words_basket_array[j][i];
 
-   let flow_position = Math.random() < 0.5 ? 'left' : 'right';
-   falling_word.className = 'falling_word  ' +  correctness + ' flow_elements ' + flow_position;
+   // let flow_position = Math.random() < 0.5 ? 'left' : 'right';
+   falling_word.className = 'falling_word  ' +  correctness + ' flow_elements';
    collected_array.push(falling_word); 
  }
    shuffle(collected_array);
@@ -57,6 +60,7 @@ for(let j=0; j< words_basket_array.length; j++){
    collected_array = [];
    }
    shuffle(play_array);
+   shuffle(track_line);
 }
 function buildBasketGame() {  
   for(let i=0;i<track.length;i++){  
@@ -66,7 +70,7 @@ function buildBasketGame() {
         
     track[i].appendChild(word_block);
   }
-  for (let i=0; i<5; i++){
+  for (let i=0; i<7; i++){
     buildBasketField();
   }
   }
@@ -79,31 +83,41 @@ function basketOver(){
       f[j].remove(f[j]);
     }
     gameBasketBox.removeEventListener('mousemove', getMouseDirection, false);
+    wordbasket_start.addEventListener('click');
   } 
 // evaluate results
 function checkUpBasket(){    
-    basket_overlay.style.display = 'block';
-    basket_result.style.display = 'block';
-    if(correct_catch > 1 && wrong_words ==0) {
-      basket_result.className = 'basket_success';
-      basket_message.innerHTML = '<p class="basket_done"> Mission 8 Success </p>';
-      wordbasket_restart.style.display = 'none';
-                
-    }
-    else {
-      basket_result.className = ' ';
-      basket_message.innerHTML = '<p class="basket_text">You have catched' + '<br> correct words:  ' + correct_catch + '  of 5; <br> Wrong words: ' +  wrong_words  + '.' + '<br> You can try again!</p>    ';  
-      wordbasket_restart.style.display = 'block';
-    }    
-    correct_catch = 0;  
-    wrong_words = 0;  
-    clearInterval(runWordBasket);
-    basketOver();  
+basket_overlay.style.display = 'block';
+basket_result.style.display = 'block';    
+basket_result.className = 'basket_success';
+basket_message.innerHTML = '<p class="basket_done"> Mission 8 Success </p>';
+wordbasket_restart.style.display = 'none';  
+correct_catch = 0;
+track_line_index = 0;
+clearInterval(runWordBasket);
+basketOver();  
 }
+
+
+function fail_game(text){
+basket_overlay.style.display = 'block';
+basket_result.style.display = 'block';
+basket_result.className = ' ';
+basket_message.innerHTML = '<p class="basket_text">' +  text + '<br> You can try again!</p>    ';  
+wordbasket_restart.style.display = 'block';
+correct_catch = 0;  
+
+clearInterval(runWordBasket);
+basketOver(); 
+track_line_index = 0; 
+correct_catch = 0;
+}
+
+
 // moving words on screen
 function moveWords() {
   let falling_word = document.querySelectorAll('.flow_elements');
-   if(falling_word.length==0 && play_array.length==0){
+   if(correct_catch ==5){
      checkUpBasket();
      return false;
    }
@@ -118,23 +132,35 @@ function moveWords() {
             falling_word[i].remove(falling_word[i]);          
         } 
         else {
-          wrong_words++;      
+          let text = 'You have catched a wrong word!';
+          fail_game(text);        
           falling_word[i].remove(falling_word[i]);
         }
         
-      } else {
+      } else { 
+        if(falling_word[i].classList.contains('correct')){
+          let text = 'You missed a correct word!';
+            fail_game(text);   
+        }
             falling_word[i].remove(falling_word[i]);                
       }      
     } else {
       position.appendChild(falling_word[i]);
     }    
   }
-    let falling = play_array[0][0]; 
-    track[Math.floor(Math.random()*track.length)].firstChild.appendChild(falling);
+    let falling = play_array[0][0];
+    let number =  track_line[track_line_index];
+
+
+    track[number].firstChild.appendChild(falling);
+    ++track_line_index;
+    // track[Math.floor(Math.random()*track.length)].firstChild.appendChild(falling);
 
     play_array[0].splice(0,1);
     if(play_array[0].length==0){
-      play_array.splice(0,1);            
+      play_array.splice(0,1); 
+      track_line_index = 0; 
+      shuffle(track_line);          
     } 
 }  
 // get coodinates of basket
@@ -179,6 +205,7 @@ function basketNewgame(){
 }
 // events
 // touch evnt handler
+// disabled
 function getTouchBasket(event){
  let xCoordinate = event.touches[0].clientX;
 let width = screen.width/2;
@@ -204,6 +231,7 @@ let width = screen.width/2;
 // click a start button
 wordbasket_start.addEventListener('click', function(e){
 basketNewgame();
+wordbasket_start.removeEventListener('click');
 });
 // moving basket from keyboard;
 window.addEventListener('keyup',function(e){
@@ -232,40 +260,72 @@ window.addEventListener('keyup',function(e){
 });
 close_popup_basket.addEventListener('click', function(e){
 basket_overlay.style.display = 'none';
+wordbasket_start.addEventListener('click');
+correct_catch = 0;
+track_line_index = 0;
 });
 // bodyElement.addEventListener('touchstart', getTouchBasket, true);
 // restart game if fail
 wordbasket_restart.addEventListener('click', function(e){
+correct_catch = 0;
+track_line_index = 0;  
 basketNewgame();
 });
-let event = null;
-document.addEventListener("touchstart", function (e) {
-    event = e;
-});
-document.addEventListener("touchmove", function (e) {
-    if (event) {
-        if (e.touches[0].pageY - event.touches[0].pageY >0){
-        	if(b_basket.left - x_basket > 0) {
-             wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
 
-             if(wordBasket.offsetLeft<0){
-             	wordBasket.style.left = '0';  
-             }
-         }
+
+
+// let event = null;
+// document.addEventListener("touchstart", function (e) {
+//     event = e;
+// });
+// document.addEventListener("touchmove", function (e) {
+//     if (event) {
+//         if (e.touches[0].pageY - event.touches[0].pageY >0){
+//         	if(b_basket.left - x_basket > 0) {
+//              wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
+
+//              if(wordBasket.offsetLeft<0){
+//              	wordBasket.style.left = '0';  
+//              }
+//          }
         
-      }
-        else{
-        	if(wordBasket.offsetLeft + b_basket.width < bx_basket.width) {         
-            wordBasket.style.left = wordBasket.offsetLeft + x_basket + "px";          
-            } 
+//       }
+//         else{
+//         	if(wordBasket.offsetLeft + b_basket.width < bx_basket.width) {         
+//             wordBasket.style.left = wordBasket.offsetLeft + x_basket + "px";          
+//             } 
 
-            else{
+//             else{
     
-            wordBasket.style.left =b_basket.width*4 + "px";   	
-            }
-        }
-   }
- });
- document.addEventListener("touched", function (e) {
-    event = null;
- });
+//             wordBasket.style.left =b_basket.width*4 + "px";   	
+//             }
+//         }
+//    }
+//  });
+//  document.addEventListener("touched", function (e) {
+//     event = null;
+//  });
+
+// moving basket using arrows buttons
+
+if(wordbasket_left){
+wordbasket_left.addEventListener('click', function(e){
+
+   getcoordinates();
+    if(b_basket.left - x_basket > 0) {
+      wordBasket.style.left = wordBasket.offsetLeft - x_basket + 'px';  
+    }
+    else {     
+       wordBasket.style.left = '0';      
+    }   
+});
+
+}
+if(wordbasket_right){
+wordbasket_right.addEventListener('click', function(e){
+ getcoordinates();    
+     if(wordBasket.offsetLeft + b_basket.width < bx_basket.width) {      
+      wordBasket.style.left = wordBasket.offsetLeft + x_basket + "px";          
+    }    
+});
+}

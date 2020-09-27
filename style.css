@@ -5,13 +5,14 @@ margin:0;
 height: 100vh;
 width: 100vw;
 background-color: #fff;
+overflow-x: hidden;
 }
 body, html{
 overflow-x: hidden;
 }
 #gameBasketBox {
 height:100vh;
-max-height: 500px;
+max-height: 490px;
 overflow:hidden;
 background-image: url('img/basket_bg.png');
 background-position: center bottom;
@@ -67,8 +68,10 @@ width: 147px;
 height: 137px;
 z-index: 3;
 position: absolute;
-top: 30%;
+top: 10vh;
 left: 0;
+right: 0;
+margin: 0 auto;
 }
 #wordbasket_restart{
 background-image: url('img/restart.png');
@@ -81,6 +84,22 @@ height: 137px;
 margin: auto;
 margin-top: 16px;
 display: block;
+}
+#wordbasket_left{
+background-image: url('img/left_basket.png');
+width: 50px;
+height: 50px;
+bottom: 50px;
+left: 0;
+z-index: 3;
+}
+#wordbasket_right{
+background-image: url('img/right_basket.png');
+width: 50px;
+height: 50px;
+bottom: 50px;
+right: 0;
+z-index: 3;
 }
 #basket_overlay{
 width: 100vw;
@@ -107,12 +126,20 @@ font-family: 'Arial';
 #wordbasket_restart:hover{
 opacity: 0.8;
 outline: none;
+background-color: transparent;
+-webkit-transform: scale(1.05);
+-ms-transform: scale(1.05);
+transform: scale(1.05);
+}
+#wordbasket_start:hover{
+background-image: url('img/start_basket.png');
+}
+#wordbasket_restart:hover{
+background-image: url('img/restart.png');
 }
 #wordbasket_start:focus{
 outline: none;
-	
 }
-
 .track {
 width:calc(100% / 5);
 float:left;
@@ -122,7 +149,7 @@ text-align:center;
 .word_block {
 position:relative;
 width:100%;
-height:calc(95vh / 5);
+height:70px;
 }
 #wordBasket {
 width:calc(100% / 5);
@@ -132,10 +159,10 @@ left:calc((100% / 5)*2);
 }
 .falling_word {
 width: 100%;
-height:5em;
+height:100%;
 padding-top: 0;
-position:relative;
 top:calc((100% - 6em)/2);
+position:relative;
 text-align: left;
 color: #000;
 font-size: 20px;
@@ -161,7 +188,9 @@ font-weight: bold;
 font-size: 26px;
 top: 0;
 width: 80%;
+max-width: 500px;
 height: 60%;
+max-height: 350px;
 left: 0;
 right: 0;
 margin: 0 auto;
@@ -175,19 +204,7 @@ background-color: #fff;
 .flow_elements {
 position:absolute;
 box-sizing: border-box;
-
-}
-
-/*.correct{
-background-color: green;
-}*/
-.flow_elements.left{
-text-align: left;
-padding-left: 20%;
-}
-.flow_elements.right{
-text-align: right;
-padding-right: 20%;
+text-align: center;
 }
 .track_box{
 position: absolute;
@@ -195,7 +212,6 @@ bottom: 0;
 left: 0;
 right: 0;	
 }
-
 .basket_wrapper{
 min-height: 100vh;
 min-width: 100vw;
@@ -205,8 +221,34 @@ padding:0;
 margin:0;
 }
 
+.wordbasket_button.direction{
+display: none;
+}
+
+/*Mobile version*/
+@media (max-width:1024px){
+.wordbasket_button.direction{
+display: block;
+}
+}
+
+
 /*Mobile version*/
 @media (max-width:767px){
+.basket_wrapper {
+min-height: 100vh;
+min-width: 100vw;
+overflow-x: hidden!important;
+overflow-y: hidden!important;
+padding: 0;
+margin: 0;
+}
+.flow_elements.left{
+text-align: center;
+}
+.flow_elements.right{
+text-align: center;
+}
 .falling_word{
 font-size: 11px;
 height:3em;
@@ -231,14 +273,10 @@ font-size: 30px;
 .basket_text{
 font-size: 14px;
 }
-
 #basket_result{
 max-height: 280px;
 }
-
 }
-
-
 @media (max-width:767px) and (orientation:portrait){
 #close_popup_basket{
 top: 5px;
@@ -247,10 +285,13 @@ right: 5px;
 .word_block {
 position:relative;
 width:100%;
-height:calc(95vw / 5);
+height:65px;
 }
 #gameBasketBox  {
 max-width: 360px;
+width: 100%;
+margin: auto;
+overflow-x: hidden;
 max-height: 480px;
 background-image: url('img/basket_bg_mobile.png');
 }
@@ -260,7 +301,6 @@ background-image: url('img/basket_mobile.png');
 #basket_result.basket_success{
 background-position: top center;
 }
-
 .flow_elements.left{
 padding-left: 0;
 }
@@ -269,7 +309,6 @@ padding-right: 0;
 }
 }
 @media (max-width:767px) and (orientation:landscape){
-
 #basket_result{
 max-height: 100%;
 }
