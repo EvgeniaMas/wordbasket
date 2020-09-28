@@ -51,7 +51,7 @@ background-size: contain;
 background-repeat: no-repeat;
 }
 #wordScore {
-height:80px;
+height:70px;
 color:#fff;
 background-repeat: no-repeat;
 background-position: center top;
@@ -150,19 +150,18 @@ text-align:center;
 position:relative;
 width:100%;
 height:70px;
-border: 3px solid red;
 }
 #wordBasket {
 width:calc(100% / 5);
 position:absolute;
-top:calc(100% - 75px);
+top:calc(100% - 65px);
 left:calc((100% / 5)*2);
 }
 .falling_word {
 width: 100%;
 height:100%;
 padding-top: 0;
-top:calc((100% - 6em)/2);
+top: -30px;
 position:relative;
 text-align: left;
 color: #000;
@@ -170,6 +169,42 @@ font-size: 20px;
 font-family:"Arial";
 font-weight: bold;
 margin: auto;
+-webkit-animation-name: wordfall;
+-webkit-animation-duration: 3s;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-timing-function: linear;
+-moz-animation-name: wordfall;
+-moz-animation-duration: 3s;
+-moz-animation-iteration-count: infinite;
+-moz-animation-timing-function: linear;
+-o-animation-name: wordfall;
+-o-animation-duration: 3s;
+-o-animation-iteration-count: infinite;
+-o-animation-timing-function: linear;
+animation-name: wordfall;
+animation-duration: 3s;
+animation-iteration-count: infinite;
+animation-timing-function: linear;
+}
+@-webkit-keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(80px);
+            transform: translateY(80px);
+  }
+}
+@keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(80px);
+            transform: translateY(80px);
+  }
 }
 .basket_done{
 text-align: center;
@@ -253,7 +288,8 @@ text-align: center;
 .falling_word{
 font-size: 11px;
 height:3em;
-top:calc((100% - 3em)/2);
+/*top:calc((100% - 3em)/2);*/
+
 }
 #wordbasket_start {
 width: 87px;
@@ -308,6 +344,29 @@ padding-left: 0;
 .flow_elements.right{
 padding-right: 0;
 }
+
+
+@-webkit-keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(65px);
+            transform: translateY(65px);
+  }
+}
+@keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(65px);
+            transform: translateY(65px);
+  }
+}
+
 }
 @media (max-width:767px) and (orientation:landscape){
 #basket_result{
@@ -339,4 +398,26 @@ margin-left: 0;
 #basket_result{
 max-height: 320px;
 }
+
+@-webkit-keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+@keyframes wordfall {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+  }
+}
+
 }

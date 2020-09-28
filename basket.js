@@ -23,6 +23,8 @@ let xDirection = "";
 let player_oldX = 0;
 let track_line = [0,1,2,3,4];
 let track_line_index = 0;
+let group_set = true;
+
 let words_basket_array = [
   ['Customer Focus', 'Customer Foam Cleanser', 'Customer Foous' , 'Costomer Focns', 'Customr Focus' ],
   ['Agility', 'Ability', 'Aqility' , 'Angry', 'Agilty' ],
@@ -150,10 +152,21 @@ function moveWords() {
       position.appendChild(falling_word[i]);
     }    
   }
+
+   
+  if(falling_word.length> 4){
+      group_set = false;
+  }
+  
+  else if(falling_word.length<4){
+    group_set = true;
+  }
+   
+
+
+    if(group_set){
     let falling = play_array[0][0];
     let number =  track_line[track_line_index];
-
-
     track[number].firstChild.appendChild(falling);
     ++track_line_index;
     // track[Math.floor(Math.random()*track.length)].firstChild.appendChild(falling);
@@ -163,7 +176,8 @@ function moveWords() {
       play_array.splice(0,1); 
       track_line_index = 0; 
       shuffle(track_line);          
-    } 
+      } 
+    }
 }  
 // get coodinates of basket
 function getcoordinates(){
@@ -204,7 +218,10 @@ function basketNewgame(){
      basket_overlay.style.display = 'none';
   }
   gameBasketBox.addEventListener('mousemove', getMouseDirection, false);
-  runWordBasket = setInterval(moveWords,  800);
+
+  moveWords();
+  moveWords();
+  runWordBasket = setInterval(moveWords,  2000);
 }
 // events
 // touch evnt handler
